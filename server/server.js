@@ -7,7 +7,9 @@ require('dotenv').config() // config package to read .env file and set to proces
 
 const dbConfig = require('./config/dbConfig')
 
-
+const userRoute = require('./routes/userRoute')
+app.use(express.json())
+app.use('/', userRoute)
 
 app.listen(8082, ()=>{
     console.log('server is running')

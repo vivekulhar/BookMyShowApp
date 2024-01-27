@@ -23,3 +23,13 @@ export const RegisterUser = async (payload) => {
     return err;
   }
 };
+
+// Login a User
+export const LoginUser = async (payload) => {
+  try {
+    const response = await axiosInstance.post("api/users/login", payload);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

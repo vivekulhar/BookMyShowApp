@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import { RegisterUser } from "../../apicalls/users";
 
-
-
 const Register = () => {
-  const onDateSubmit = async (values) => {
+  const onFinish = async (values) => {
     try {
       const response = await RegisterUser(values);
-      if(response.success){
-        message.success(response.message)
-      }else{
-        message.error(response.message)
+      if (response.success) {
+        // import { message } from "antd";
+        message.success(response.message);
+      } else {
+        message.error(response.message);
       }
     } catch (err) {
       message.error(err);
@@ -26,7 +25,7 @@ const Register = () => {
           Welcome to Scaler Shows! Please Register{" "}
         </h1>
         <hr />
-        <Form layout="vertical" className="mt-1" onFinish={onDateSubmit}>
+        <Form layout="vertical" className="mt-1" onFinish={onFinish}>
           <Form.Item
             label="Name"
             name="name"

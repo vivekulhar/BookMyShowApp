@@ -1,9 +1,24 @@
 import React from "react";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
+import { RegisterUser } from "../../apicalls/users";
+
+
 
 const Register = () => {
+  const onDateSubmit = async (values) => {
+    try {
+      const response = await RegisterUser(values);
+      if(response.success){
+        message.success(response.message)
+      }else{
+        message.error(response.message)
+      }
+    } catch (err) {
+      message.error(err);
+    }
+  };
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-400">
@@ -11,7 +26,7 @@ const Register = () => {
           Welcome to Scaler Shows! Please Register{" "}
         </h1>
         <hr />
-        <Form layout="vertical" className="mt-1">
+        <Form layout="vertical" className="mt-1" onFinish={onDateSubmit}>
           <Form.Item
             label="Name"
             name="name"

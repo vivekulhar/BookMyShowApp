@@ -70,10 +70,10 @@ function ProtectedRoute({ children }) {
 
             <i
               className="ri-logout-box-r-line mt-1"
-            //   onClick={() => {
-            //     localStorage.removeItem("token");
-            //     navigate("/login");
-            //   }}
+              onClick={() => {
+                localStorage.removeItem("token");
+                navigate("/login");
+              }}
             ></i>
           </div>
         </div>

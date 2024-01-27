@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Form, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import { RegisterUser } from "../../apicalls/users";
 
 const Register = () => {
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
       const response = await RegisterUser(values);
@@ -18,6 +19,11 @@ const Register = () => {
       message.error(err);
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-400">

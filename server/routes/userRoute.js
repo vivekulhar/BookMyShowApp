@@ -1,7 +1,7 @@
 // Initialize express router
 // we dont need to use app.get, app.post, app.put, app.delete
 const router = require("express").Router();
-
+const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
 // Set default API response
@@ -24,6 +24,12 @@ router.post("/register", async (req, res) => {
         message: "User already exists",
       });
     }
+    // hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    req.body.password = hashedPassword;
+
+
 
     // create new user
     const newUser = new User(req.body);
@@ -38,6 +44,32 @@ router.post("/register", async (req, res) => {
     console.log(err);
   }
 });
+
+// login routes
+router.post('/login', async (req, res)=>{
+    const user = await User.findOne({email: req.body.email})
+    // check if user exists
+    if(!user){
+        return res.send({
+            success: false,
+            message: 'User does not exist'
+        })
+    }
+    // check if password is correct
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    if(!validPassword){
+        return res.send({
+            success: false,
+            message: 'Email or password is incorrect'
+        })
+    }
+    // send response
+    res.send({
+        success: true,
+        message: 'Login successful',
+        user: user
+    })
+})
 
 
 // Export API routes

@@ -39,7 +39,7 @@ export const AddTheatre = async (payload) => {
       return error.response;
     }
   };
-  
+
 // delete a theatre
   export const DeleteTheatre = async (payload) => {
     try {
@@ -47,6 +47,17 @@ export const AddTheatre = async (payload) => {
         "/api/theatres/delete-theatre",
         payload
       );
+      return response.data;
+    } catch (error) {
+      return error.response;
+    }
+  };
+
+  
+ //get all theatres
+  export const GetAllTheatres = async () => {
+    try {
+      const response = await axiosInstance.get("/api/theatres/get-all-theatres");
       return response.data;
     } catch (error) {
       return error.response;

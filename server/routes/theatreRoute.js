@@ -73,5 +73,22 @@ router.post("/delete-theatre", authMiddleware, async (req, res) => {
 });
 
 
+//get all theatres
+
+router.get("/get-all-theatres", authMiddleware, async (req, res) => {
+  try {
+    const theatres = await Theatre.find().populate('owner')
+    res.send({
+      success: true,
+      message: "Theatres fetched successfully",
+      data: theatres,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
 
 module.exports = router;

@@ -19,30 +19,30 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
 
   const dispatch = useDispatch();
 
-    const getData = async () => {
-      try {
-        dispatch(ShowLoading());
-        const moviesResponse = await GetAllMovies();
-        if (moviesResponse.success) {
-          setMovies(moviesResponse.data);
-        } else {
-          message.error(moviesResponse.message);
-        }
-
-        const showsResponse = await GetAllShowsByTheatre({
-          theatreId: theatre._id,
-        });
-        if (showsResponse.success) {
-          setShows(showsResponse.data);
-        } else {
-          message.error(showsResponse.message);
-        }
-        dispatch(HideLoading());
-      } catch (error) {
-        message.error(error.message);
-        dispatch(HideLoading());
+  const getData = async () => {
+    try {
+      dispatch(ShowLoading());
+      const moviesResponse = await GetAllMovies();
+      if (moviesResponse.success) {
+        setMovies(moviesResponse.data);
+      } else {
+        message.error(moviesResponse.message);
       }
-    };
+
+      const showsResponse = await GetAllShowsByTheatre({
+        theatreId: theatre._id,
+      });
+      if (showsResponse.success) {
+        setShows(showsResponse.data);
+      } else {
+        message.error(showsResponse.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
 
   const handleAddShow = async (values) => {
     try {
@@ -66,23 +66,23 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     }
   };
 
-    const handleDelete = async (id) => {
-      try {
-        dispatch(ShowLoading());
-        const response = await DeleteShow({ showId: id });
+  const handleDelete = async (id) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await DeleteShow({ showId: id });
 
-        if (response.success) {
-          message.success(response.message);
-          getData();
-        } else {
-          message.error(response.message);
-        }
-        dispatch(HideLoading());
-      } catch (error) {
-        message.error(error.message);
-        dispatch(HideLoading());
+      if (response.success) {
+        message.success(response.message);
+        getData();
+      } else {
+        message.error(response.message);
       }
-    };
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
+  };
   const columns = [
     {
       title: "Show Name",
@@ -141,9 +141,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     },
   ];
 
-    useEffect(() => {
-      getData();
-    }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Modal

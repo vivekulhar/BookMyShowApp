@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 
 module.exports =function(req, res, next){
     try {
+
+        console.log(req.headers.authorization)
         // first string is bearer and second is token
         const token = req.headers.authorization.split(" ")[1];
         // if token is created from secret key then it will be decoded

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies, GetMovieById } from "../../apicalls/movies";
 import moment from "moment";
-
+import { GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 const TheatresForMovie = () => {
   const navigate = useNavigate();
@@ -16,6 +16,8 @@ const TheatresForMovie = () => {
   const [date, setDate] = React.useState(
     tempDate || moment().format("YYYY-MM-DD")
   );
+  const [theatres, setTheatres] = useState([]);
+
 
   const getDate = async () => {
     try {
@@ -33,9 +35,31 @@ const TheatresForMovie = () => {
     }
   };
 
+  const getTheatres = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetAllTheatresByMovie({ date, movie: params.id });
+      if (response.success) {
+        setTheatres(response.data);
+        console.log(response.data);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+
   useEffect(() => {
     getDate();
   }, []);
+
+   useEffect(() => {
+     getTheatres();
+   }, [date]);
 
   return (
     <div>
@@ -66,6 +90,8 @@ const TheatresForMovie = () => {
                 }}
               />
             </div>
+
+                
           </div>
         </div>
       )}

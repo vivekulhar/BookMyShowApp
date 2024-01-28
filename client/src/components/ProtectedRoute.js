@@ -17,7 +17,6 @@ function ProtectedRoute({ children }) {
       const response = await GetCurrentUser();
       dispatch(HideLoading());
       if (response.success) {
-        console.log(response.data);
         dispatch(SetUser(response.data));
       } else {
         dispatch(SetUser(null));
@@ -41,14 +40,13 @@ function ProtectedRoute({ children }) {
   }, []);
 
   return (
-    user &&
-    (
+    user && (
       <div className="layout p-1">
         <div className="header bg-primary flex justify-between p-2">
           <div>
             <h1
               className="text-2xl text-white cursor-pointer"
-              onClick={() => navigate("/")}
+              // onClick={() => navigate("/")}
             >
               Book My Show
             </h1>

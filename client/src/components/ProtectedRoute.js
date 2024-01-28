@@ -19,10 +19,10 @@ function ProtectedRoute({ children }) {
       if (response.success) {
         dispatch(SetUser(response.data));
       } else {
-        dispatch(SetUser(null));
-        message.error(response.message);
-        localStorage.removeItem("token");
-        navigate("/login");
+        // dispatch(SetUser(null));
+        // message.error(response.message);
+        // localStorage.removeItem("token");
+        // navigate("/login");
       }
     } catch (error) {
       dispatch(HideLoading());
@@ -46,7 +46,7 @@ function ProtectedRoute({ children }) {
           <div>
             <h1
               className="text-2xl text-white cursor-pointer"
-              // onClick={() => navigate("/")}
+              onClick={() => navigate("/")}
             >
               Book My Show
             </h1>

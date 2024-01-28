@@ -4,6 +4,9 @@ import {GetAllMovies} from '../../apicalls/movies'
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { useNavigate } from "react-router-dom";
 import {useDispatch} from 'react-redux'
+import moment from "moment";
+
+
 const Home = () => {
 
   const [searchText = "", setSearchText] = React.useState("");
@@ -48,11 +51,11 @@ useEffect(() => {
             <Col span={6}>
               <div
                 className="card flex flex-col gap-3 cursor-pointer"
-                // onClick={() =>
-                //   navigate(
-                //     `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
-                //   )
-                // }
+                onClick={() =>
+                  navigate(
+                    `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
+                  )
+                }
               >
                 <img src={movie.poster} alt="" height={200} />
 

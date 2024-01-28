@@ -31,3 +31,14 @@ export const UpdateMovie = async (payload) => {
         return error.response;
     }
 }
+
+
+//delete a movie
+export const DeleteMovie = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/movies/delete-movie", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}

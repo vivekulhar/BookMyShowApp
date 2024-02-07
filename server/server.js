@@ -12,11 +12,14 @@ const userRoute = require('./routes/userRoute')
 const movieRoute = require('./routes/movieRoute')
 const theatreRoute = require('./routes/theatreRoute')
 const bookingRoute = require('./routes/bookingRoute')
+
+const upcomingRoute = require("./routes/upcomingRoute");
 app.use(express.json())
 app.use('/api/users', userRoute)
 app.use("/api/movies", movieRoute);
 app.use("/api/theatres", require("./routes/theatreRoute"));
 app.use("/api/bookings", require("./routes/bookingRoute"));
+app.use("/api/upcoming", upcomingRoute);
 app.listen(8082, ()=>{
     console.log('server is running')
 })

@@ -5,9 +5,9 @@
     import { useNavigate, useParams } from "react-router-dom";
     import { GetShowById } from "../../apicalls/theatres";
     import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
-    // import StripeCheckout from "react-stripe-checkout";
+    import StripeCheckout from "react-stripe-checkout";
     import Button from "../../components/Button";
-    // import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
+    import { BookShowTickets, MakePayment } from "../../apicalls/bookings";
 
     function BookShow() {
       const { user } = useSelector((state) => state.users);
@@ -97,48 +97,48 @@
         );
       };
 
-    //   const book = async (transactionId) => {
-    //     try {
-    //       dispatch(ShowLoading());
-    //       const response = await BookShowTickets({
-    //         show: params.id,
-    //         seats: selectedSeats,
-    //         transactionId,
-    //         user: user._id,
-    //       });
-    //       if (response.success) {
-    //         message.success(response.message);
-    //         navigate("/profile");
-    //       } else {
-    //         message.error(response.message);
-    //       }
-    //       dispatch(HideLoading());
-    //     } catch (error) {
-    //       message.error(error.message);
-    //       dispatch(HideLoading());
-    //     }
-    //   };
+      const book = async (transactionId) => {
+        try {
+          dispatch(ShowLoading());
+          const response = await BookShowTickets({
+            show: params.id,
+            seats: selectedSeats,
+            transactionId,
+            user: user._id,
+          });
+          if (response.success) {
+            message.success(response.message);
+            navigate("/profile");
+          } else {
+            message.error(response.message);
+          }
+          dispatch(HideLoading());
+        } catch (error) {
+          message.error(error.message);
+          dispatch(HideLoading());
+        }
+      };
 
-    //   const onToken = async (token) => {
-    //     console.log(token);
-    //     try {
-    //       dispatch(ShowLoading());
-    //       const response = await MakePayment(
-    //         token,
-    //         selectedSeats.length * show.ticketPrice * 100
-    //       );
-    //       if (response.success) {
-    //         message.success(response.message);
-    //         book(response.data);
-    //       } else {
-    //         message.error(response.message);
-    //       }
-    //       dispatch(HideLoading());
-    //     } catch (error) {
-    //       message.error(error.message);
-    //       dispatch(HideLoading());
-    //     }
-    //   };
+      const onToken = async (token) => {
+        console.log(token);
+        try {
+          dispatch(ShowLoading());
+          const response = await MakePayment(
+            token,
+            selectedSeats.length * show.ticketPrice * 100
+          );
+          if (response.success) {
+            message.success(response.message);
+            book(response.data);
+          } else {
+            message.error(response.message);
+          }
+          dispatch(HideLoading());
+        } catch (error) {
+          message.error(error.message);
+          dispatch(HideLoading());
+        }
+      };
 
       useEffect(() => {
         getData();
@@ -186,14 +186,14 @@
                     </h1>
                   </div>
                 </div>
-                {/* <StripeCheckout
+                <StripeCheckout
                   token={onToken}
                   amount={selectedSeats.length * show.ticketPrice * 100}
                   billingAddress
-                  stripeKey="pk_test_51JKPQWSJULHQ0FL7VOkMrOMFh0AHMoCFit29EgNlVRSvFkDxSoIuY771mqGczvd6bdTHU1EkhJpojOflzoIFGmj300Uj4ALqXa"
+                  stripeKey="pk_test_51Oh35bSAuZfGQ1C6Gh5WdoT7kdjSK2AZwx5rbvCPBQfTnFsyztQEqJqJlHi1EqU1kOb6ympQgLlDAWRtCnJqXxM1008B6JhEIP"
                 >
                   <Button title="Book Now" />
-                </StripeCheckout> */}
+                </StripeCheckout>
               </div>
             )}
           </div>
